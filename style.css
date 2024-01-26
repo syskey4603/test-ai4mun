@@ -1,0 +1,105 @@
+/* Add CSS styles for fade-in animation */
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #222; /* Dark background color */
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  justify-content: center;
+  color: #fff; /* Text color */
+}
+
+.container {
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white background */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.4); /* Darker box shadow */
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  font-weight: 500;
+  color: #fff; /* Text color */
+  font-family: "Montserrat Medium"; /* Change to a more vibrant font */
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white background */
+  color: #fff; /* Text color */
+  font-family: "Montserrat"; /* Change to the Montserrat font */
+}
+
+button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* Simple fade-in animation with blur effect for #resultdiv */
+#resultdiv {
+  margin: 5px;
+  padding: 5px;
+  width: 90%;
+  height: 90%;
+  overflow: auto;
+  text-align: justify;
+  vertical-align: bottom;
+  background-color: transparent; /* Make the background transparent */
+  border-radius: 5px;
+  box-shadow: none; /* Remove the box shadow */
+}
+
+span {
+  opacity: 0;
+  filter: blur(4px);
+  animation: fade-in 0.8s cubic-bezier(0.11, 0, 0.5, 0), blur-in 0.8s cubic-bezier(0.11, 0, 0.5, 0);
+  animation-fill-mode: both;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes blur-in {
+  0% {
+    filter: blur(4px);
+  }
+  100% {
+    filter: blur(0);
+  }
+}
