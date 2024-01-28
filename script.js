@@ -2,12 +2,13 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
 let cooldownval = 0
 let cooldownpara = document.getElementById("cooldownpara")
+let loader = document.getElementById("loadcontainer")
+let submitbutton = document.getElementById("submit")
 let span = null
 let node = null
 const genAI = new GoogleGenerativeAI("AIzaSyCdj9IuhiKK_Y3XGkNQMI71EoQFOJ04mc0");
 async function test() {
-
-  let resultdiv = document.getElementById("resultdiv");
+  
   let answerdiv = document.getElementById("answerdiv")
   let country = document.getElementById("country");
   let legality = document.getElementById("legality");
@@ -25,6 +26,9 @@ async function test() {
   qpara.style.verticalAlign = "bottom";
   qpara.innerText = "Country: " + country.value + "  \n Legality: " + legality.value + "\n \n";
   originaltext.appendChild(qpara);
+  loader.style.visibility='visible'
+  submitbutton.disabled = true
+  submitbutton.style.background='#796d6d';
 
 
   const safetySettings = [
@@ -65,7 +69,9 @@ async function test() {
         // Element node, add with content
         span.innerHTML = node.outerHTML;
       }
-
+      loader.style.visibility='hidden'
+      submitbutton.disabled = false
+      submitbutton.style.background='#007bff';
       answerdiv.appendChild(span);
 
       // Add the 'animate' class to trigger the animation
@@ -89,6 +95,9 @@ async function test() {
 
 document.getElementById("submit").onclick = function () {
   test();
+
+  
+
 
   
   }
