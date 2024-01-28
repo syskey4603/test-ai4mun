@@ -1,17 +1,31 @@
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { HarmBlockThreshold, HarmCategory } from "@google/generative-ai";
-
-
+let cooldownval = 0
+let cooldownpara = document.getElementById("cooldownpara")
+let span = null
+let node = null
 const genAI = new GoogleGenerativeAI("AIzaSyCdj9IuhiKK_Y3XGkNQMI71EoQFOJ04mc0");
 async function test() {
+
   let resultdiv = document.getElementById("resultdiv");
+  let answerdiv = document.getElementById("answerdiv")
   let country = document.getElementById("country");
   let legality = document.getElementById("legality");
+  let originaltext = document.getElementById("originaltext");
+  answerdiv.innerHTML = "";
+  originaltext.innerHTML = "";
+
+  
+  if(country.value == "" || legality.value == "") {
+    window.alert("you have not entered values try again")
+    return
+  }
 
   const qpara = document.createElement("p");
   qpara.style.verticalAlign = "bottom";
-  qpara.innerText = "Country: " + country.value + "  \t \t Legality: " + legality.value + "\n \n";
-  resultdiv.appendChild(qpara);
+  qpara.innerText = "Country: " + country.value + "  \n Legality: " + legality.value + "\n \n";
+  originaltext.appendChild(qpara);
+
 
   const safetySettings = [
     {
@@ -26,7 +40,7 @@ async function test() {
 
   const model = genAI.getGenerativeModel({ model: "gemini-pro", safetySettings });
 
-  const prompt = "5 specific instances with details of the actual example of the violations by " + country.value + " in regards to the legality of " + legality.value;
+  const prompt = "5 specific instances with details of the actual example of the violations by " + country.value + " in regards to the legality of " + legality.value + "make it very detailed and expand on the real life example";
   const result = await model.generateContent(prompt);
   const response = await result.response;
   const text = response.text();
@@ -40,8 +54,9 @@ async function test() {
   // Iterate through child nodes and add them to the resultdiv with a delay between words
   async function processNodesWithDelay(nodes, index) {
     if (index < nodes.length) {
-      const node = nodes[index];
-      const span = document.createElement("span");
+      node = nodes[index];
+      span = document.createElement("span");
+      span.setAttribute('id','textelement');
 
       if (node.nodeType === Node.TEXT_NODE) {
         // Text node, add as-is
@@ -51,7 +66,7 @@ async function test() {
         span.innerHTML = node.outerHTML;
       }
 
-      resultdiv.appendChild(span);
+      answerdiv.appendChild(span);
 
       // Add the 'animate' class to trigger the animation
       setTimeout(() => {
@@ -60,6 +75,7 @@ async function test() {
         // Recursively call processNodesWithDelay for the next node
         processNodesWithDelay(nodes, index + 1);
       }, 300); // Delay between words (adjust as needed)
+
     }
   }
 
@@ -68,8 +84,17 @@ async function test() {
 
   country.value = "";
   legality.value = "";
+  
 }
 
 document.getElementById("submit").onclick = function () {
   test();
-};
+
+  
+  }
+
+
+
+
+
+
