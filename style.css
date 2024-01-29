@@ -105,9 +105,9 @@ body {
 }
 
 h1 {
-  font-size: 24px;
+  font-size: 40px;
   margin-bottom: 20px;
-  font-weight: 500;
+  font-weight: bold;
   color: #fff; /* Text color */
   font-family: "Montserrat Medium"; /* Change to a more vibrant font */
 }
